@@ -4,25 +4,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 
-class MainActivity : AppCompatActivity(), FragmentUpper.UpperFragmentListener,FragmentLower.LowerFragmentListener {
-    private lateinit var lowerFragment:FragmentLower
-    private lateinit var upperFragment:FragmentUpper
+class MainActivity : AppCompatActivity(){
+    private lateinit var fragmentA:FragmentA
+    private lateinit var fragmentB:FragmentB
+    val viewModel = activityViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        lowerFragment = FragmentLower()
-        upperFragment = FragmentUpper()
+        fragmentA= FragmentA()
+        fragmentB = FragmentB()
 
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container_view,fragmentA).commit()
 
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragment_container_view, lowerFragment)
-            .commit()
-
-
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragment_container_view2, upperFragment)
-            .commit()
 
 
 
@@ -30,15 +24,4 @@ class MainActivity : AppCompatActivity(), FragmentUpper.UpperFragmentListener,Fr
 
     }
 
-    override fun onInputUpperSent( input: CharSequence) {
-
-
-        lowerFragment.updateLowerTextView(input)
-
-    }
-
-    override fun onInputLowerSent( input: CharSequence) {
-
-        upperFragment.updateUpperTextView(input)
-    }
 }
